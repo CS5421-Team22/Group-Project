@@ -234,6 +234,15 @@ def singlePredicate(node, predicate):
         else:
             cmpVal = float(cmpVal)
             selfVal = float(selfVal)
+    else:
+        if "'" in cmpVal:
+            str_start = cmpVal.index("'")
+            str_end = cmpVal.index("'", str_start + 1)
+            cmpVal = cmpVal[str_start + 1: str_end]
+        elif "\"" in cmpVal:
+            str_start = cmpVal.index("\"")
+            str_end = cmpVal.index("\"", str_start + 1)
+            cmpVal = cmpVal[str_start + 1: str_end]
             
     if operator == '>':
         return selfVal > cmpVal
