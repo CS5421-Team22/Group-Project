@@ -193,7 +193,6 @@ class Interpreter:
 
 # singlePredicate
 def singlePredicate(node, predicate):
-
     # node is None
     if node is None:
         return False
@@ -218,16 +217,35 @@ def singlePredicate(node, predicate):
             existDoubleOperator = True
             operator = op
             cmpVal = predicate[predicate.index(op) + 2 : ].strip()
+            operatorIndex = predicate.index(op)
             break
     if not existDoubleOperator:       
         for op in singleOperators:   
             if op in predicate:
                 operator = op
                 cmpVal = predicate[predicate.index(op) + 1 : ].strip()
-                break       
-            
-#     compare values / operands
-    selfVal = str(node.getValue())
+                operatorIndex = predicate.index(op)
+                break  
+
+    # get axis and name
+    # default is child
+    axis = 'child'
+    name = ''
+    if "::" in predicate:
+        split_index = predicate.index("::")
+        axis = predicate[:split_index].strip()
+        name = predicate[split_index + 2 : operatorIndex].strip()
+    else:
+        name = predicate[: operatorIndex].strip()
+    
+    nodes = getNodesFromAxisAndName(node, axis, name)
+    for node in nodes:
+        selfVal = str(node.getValue())
+        if compareValues(selfVal, cmpVal, operator):
+            return True
+    return False
+    
+def compareValues(selfVal, cmpVal, operator):
     if selfVal.isnumeric():
         if not cmpVal.isnumeric():
             return False
@@ -257,3 +275,41 @@ def singlePredicate(node, predicate):
     elif operator == '!=':
         return selfVal != cmpVal
     return False
+
+def getNodesFromAxisAndName(nodes, axis, name):
+    if type(nodes) != list:
+        nodes = [nodes]
+    res = getNodesFromAxis(nodes, axis)
+    res = getNodesFromName(res, name)
+    return res
+
+def getNodesFromAxis(nodes, axis):
+    res = []
+    if (axis == 'child'):
+        for node in nodes:
+            res.extend(node.getChild())
+    elif (axis == 'parent'):
+        for node in nodes:
+            res.extend(node.getParent())
+    elif (axis == 'sibling'):
+        for node in nodes:
+            res.extend(node.getSibling())
+    elif (axis == 'ancestor'):
+        for node in nodes:
+            temp = node.getParent()
+            res.extend(getNodesFromAxis(temp, axis))
+            res.extend(temp)
+    elif (axis == 'descendant'):
+        for node in nodes:
+            temp = node.getChild()
+            res.extend(getNodesFromAxis(temp, axis))
+            res.extend(temp)
+    return res
+
+def getNodesFromName(nodes, name):
+    res = []
+    for node in nodes:
+        if node.getName() == name:
+            res.append(node)
+    return res
+
