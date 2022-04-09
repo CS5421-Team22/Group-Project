@@ -229,16 +229,19 @@ def singlePredicate(node, predicate):
 
     # get axis and name
     # default is child
-    axis = 'child'
-    name = ''
-    if "::" in predicate:
-        split_index = predicate.index("::")
-        axis = predicate[:split_index].strip()
-        name = predicate[split_index + 2 : operatorIndex].strip()
-    else:
-        name = predicate[: operatorIndex].strip()
     
-    nodes = getNodesFromAxisAndName(node, axis, name)
+    # axis = 'child'
+    # name = ''
+    # if "::" in predicate:
+    #     split_index = predicate.index("::")
+    #     axis = predicate[:split_index].strip()
+    #     name = predicate[split_index + 2 : operatorIndex].strip()
+    # else:
+    #     name = predicate[: operatorIndex].strip()
+    
+    # nodes = getNodesFromAxisAndName(node, axis, name)
+
+    nodes = wholeQuery_simple([node], parseQuery_simple(predicate[:operatorIndex].strip()))
     for node in nodes:
         selfVal = str(node.getValue())
         if compareValues(selfVal, cmpVal, operator):
@@ -313,3 +316,58 @@ def getNodesFromName(nodes, name):
             res.append(node)
     return res
 
+def singleQuery_simple(nodes,query):
+    new_nodes = getNodesFromAxisAndName(nodes, query["axis"], query["name"])
+    return new_nodes 
+
+def wholeQuery_simple(nodes,queries):
+    for query in queries:
+        nodes = singleQuery_simple(nodes,query)
+    return nodes
+
+# Part 1: parse query to list of dictionaries
+def parseQuery_simple(query):
+    
+    res = []
+    
+    # sample:
+    #        query = "class//stundent/mark" 
+    #        ['class', '//', 'stundent', '/', 'mark']   
+    queryArray = re.split("(//)",query)
+    temp = []
+    for tmp in queryArray:
+        if tmp !="//":
+            temp.extend(re.split("(/)",tmp))
+        else:
+            temp.append(tmp)
+    temp = [ tmp.strip() for tmp in temp]
+    queryArray = [ tmp for tmp in temp if tmp]
+
+
+    # parse the rest of queries
+    for i in range(len(queryArray)):
+        query = queryArray[i]
+        if query == "/" or  query == "//":
+            i += 1
+            continue
+            
+        n = len(query)
+        name = ''
+        axis = ''
+        predicate = ''
+        index_pred = n
+#         parse name and axis
+        if "::" in query:
+            index_split = query.index('::')
+            axis = query[: index_split]
+            name = query[index_split + 2 : index_pred]
+        else:
+            if i>0 and queryArray[i-1] == "//":
+                axis = 'descendant'
+            else:
+                axis = 'child'
+            name = query[: index_pred]
+        dict_query = {'name' : name, 'axis' : axis}
+        res.append(dict_query)
+        i += 1
+    return res

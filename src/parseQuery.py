@@ -46,7 +46,8 @@ def parseQuery(query):
         predicate = ''
         index_pred = n
 #         parse predicate
-        if query[-1] == ']':
+        # if query[-1] == ']':
+        if '[' in query:
             index_pred = query.index('[')
             predicate = query[index_pred + 1 : -1]
             query = query[ : index_pred]
@@ -64,6 +65,7 @@ def parseQuery(query):
         dict_query = {'name' : name, 'axis' : axis, 'predicate': predicate}
         res.append(dict_query)
         i += 1
+    # print("query = ", res)
     return res
 
 def singleQuery(nodes,query):

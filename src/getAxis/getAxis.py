@@ -12,7 +12,7 @@ def getNodesFromAxis(nodes, axis):
             res.extend(node.getChild())
     elif (axis == 'parent'):
         for node in nodes:
-            res.extend(node.getParent())
+            res.append(node.getParent())
     elif (axis == 'sibling'):
         for node in nodes:
             res.extend(node.getSibling())
