@@ -193,6 +193,7 @@ class Interpreter:
 
 # singlePredicate
 def singlePredicate(node, predicate):
+    # print(predicate)
     # node is None
     if node is None:
         return False
@@ -229,7 +230,7 @@ def singlePredicate(node, predicate):
 
     # get axis and name
     # default is child
-    
+
     # axis = 'child'
     # name = ''
     # if "::" in predicate:

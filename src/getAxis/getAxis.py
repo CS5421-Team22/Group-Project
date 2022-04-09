@@ -20,7 +20,7 @@ def getNodesFromAxis(nodes, axis):
         for node in nodes:
             temp = node.getParent()
             res.extend(getNodesFromAxis(temp, axis))
-            res.extend(temp)
+            res.append(temp)
     elif (axis == 'descendant'):
         for node in nodes:
             temp = node.getChild()

@@ -49,7 +49,7 @@ def parseQuery(query):
         # if query[-1] == ']':
         if '[' in query:
             index_pred = query.index('[')
-            predicate = query[index_pred + 1 : -1]
+            predicate = query[index_pred + 1 : ]
             query = query[ : index_pred]
 #         parse name and axis
         if "::" in query:
