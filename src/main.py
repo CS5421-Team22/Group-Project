@@ -58,7 +58,6 @@ while True:
         else:
             data[key] = data_tmp[key]
 
-    print(data)
     try:
         root = buildTree(data)
         break
