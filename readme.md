@@ -53,6 +53,9 @@ The data needs to have only one root element.
 
 If there are sibling nodes which share the same tag name, they should be stored in a JSON array.
 
+---
 
+If there are any questions, you can contact us by email:
+ai-liwen@comp.nus.edu.sg
 
 
