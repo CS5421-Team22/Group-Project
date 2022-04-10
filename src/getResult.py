@@ -11,3 +11,8 @@ def getResult(data,query):
     res_nodes = getQuery(root_node,query)
     
     return [ recoverNode(res_node) for res_node in res_nodes]
+
+
+def getResultFromRoot(root,query):
+    res_nodes = getQuery(root,query)
+    return [ recoverNode(res_node) for res_node in res_nodes]
