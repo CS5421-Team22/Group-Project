@@ -55,7 +55,7 @@ If there are sibling nodes which share the same tag name, they should be stored 
 
 ---
 
-If there are any questions, you may contact us by email:
+If you have any questions, you may contact us by email:
 ai-liwen@comp.nus.edu.sg
 
 
