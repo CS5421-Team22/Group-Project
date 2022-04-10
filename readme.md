@@ -9,7 +9,8 @@
 
 JSON and XML are two commonly used data formats for NoSQL databases and have different advantages. 
 
-To solve the data exchanging problem between JSON and XML, our group have developed a tool called Jpathwhich 
+To solve the data exchanging problem between JSON and XML, our group have developed a tool called Jpath.
+
 ![image](https://user-images.githubusercontent.com/50799916/162623892-1f5b6e99-8d21-4605-ab55-f976baf5b034.png)
 
 It takes XPath query as the input, then converts it into syntax that MongoDB can understand, and finally outputs equivalent JSON query results.
