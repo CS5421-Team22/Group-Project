@@ -6,6 +6,8 @@ def getNodesFromAxisAndName(nodes, axis, name):
     return res
 
 def getNodesFromAxis(nodes, axis):
+    if type(nodes) != list:
+        nodes = [nodes]
     res = []
     if (axis == 'child'):
         for node in nodes:
@@ -19,6 +21,8 @@ def getNodesFromAxis(nodes, axis):
     elif (axis == 'ancestor'):
         for node in nodes:
             temp = node.getParent()
+            if temp.name == "root" and temp.parent is None:
+                break
             res.extend(getNodesFromAxis(temp, axis))
             res.append(temp)
     elif (axis == 'descendant'):
@@ -29,6 +33,8 @@ def getNodesFromAxis(nodes, axis):
     return res
 
 def getNodesFromName(nodes, name):
+    if type(nodes) != list:
+        nodes = [nodes]
     res = []
     for node in nodes:
         if node.getName() == name:
