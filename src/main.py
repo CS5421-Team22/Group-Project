@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from buildDataTree.buildTree import *
-from getResult import getResult
+from getResult import *
 
 while True:
     print("=============Connection================")
@@ -44,21 +44,19 @@ while True:
 
     try:
         db_data = list(db[cl_name].find({}))
-        print("The data is imported.")
+        print("The data has been imported.")
     except:
         print("Cannot get data from the database collection.\n")
 
 
-
-    data_tmp = db_data[0]
-    data = dict()
-    for key in data_tmp:
-        if key == "_id":
-            continue
-        else:
-            data[key] = data_tmp[key]
-
     try:
+        data_tmp = db_data[0]
+        data = dict()
+        for key in data_tmp:
+            if key == "_id":
+                continue
+            else:
+                data[key] = data_tmp[key]
         root = buildTree(data)
         break
     except:
@@ -72,7 +70,7 @@ while True:
 
     if query:
         try:
-            print("\n",getResult(data,query),"\n")
+            print("\n",getResultFromRoot(root,query),"\n")
         except:
             print("\nInput is valid.")
     else:
