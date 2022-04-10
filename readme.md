@@ -39,3 +39,19 @@ If the data is invalid, the program will show the alert information.
 Now you can enter your Xpath Query.
 ![image](https://user-images.githubusercontent.com/50799916/162624185-829ae1f4-7a76-4d19-8e7b-5091b5789aa0.png)
 
+## 3. Sample Data Format 
+
+To understand which kind of json data is valid, you may have a look at our sample datasets: library.json and library.xml.  
+
+The data needs to have only one root element. 
+![image](https://user-images.githubusercontent.com/50799916/162624793-a6e402eb-d2fa-4d1b-9f64-97b10d1e00f5.png)
+
+---
+![image](https://user-images.githubusercontent.com/50799916/162624854-fb805589-0ccb-475e-a98c-8c83e057db11.png)
+
+
+If there are sibling nodes which share the same tag name, they should be stored in a JSON array.
+
+
+
+
