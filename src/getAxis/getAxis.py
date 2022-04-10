@@ -22,15 +22,21 @@ def getNodesFromAxis(nodes, axis):
         for node in nodes:
             temp = node.getParent()
             if temp.name == "root" and temp.parent is None:
-                break
-            res.extend(getNodesFromAxis(temp, axis))
+                continue
+            if temp.parent:
+                res.extend(getNodesFromAxis(temp, axis))
             res.append(temp)
     elif (axis == 'descendant'):
         for node in nodes:
-            temp = node.getChild()
-            res.extend(getNodesFromAxis(temp, axis))
-            res.extend(temp)
-    return res
+            if node.child:
+                temp = node.getChild()
+                res.extend(getNodesFromAxis(temp, axis))
+                res.extend(temp)
+    res2 = []
+    for node in res:
+        if not(node in res2):
+            res2.append(node)
+    return res2
 
 def getNodesFromName(nodes, name):
     if type(nodes) != list:
