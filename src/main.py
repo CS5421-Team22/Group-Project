@@ -49,6 +49,7 @@ while True:
         print("Cannot get data from the database collection.\n")
 
 
+
     data_tmp = db_data[0]
     data = dict()
     for key in data_tmp:
@@ -56,7 +57,8 @@ while True:
             continue
         else:
             data[key] = data_tmp[key]
-        
+
+    print(data)
     try:
         root = buildTree(data)
         break
@@ -78,10 +80,3 @@ while True:
         query = input("Your Xpath query is:\n")
 
                                 
-        
-
-        
-
-
-    
-    
