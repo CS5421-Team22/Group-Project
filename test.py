@@ -6,7 +6,9 @@ getResult(library, "/child::library/child::album[child::year <= 1997]/child::tit
 # simple predicate: >=
 getResult(library, "/child::library/child::album[child::year >= 1998]/child::title")
 # simple predicate: <
-getResult(library, "/child::library/child::album[child::year >= 1998]/child::title")
+getResult(library, "/child::library/child::album[child::year < 1998]/child::title")
+# simple predicate: >
+getResult(library, "/child::library/child::album[child::year > 1997]/child::title")
 # simple predicate: !=
 getResult(library, "/child::library/child::album[child::year != 1998]/child::title")
 # complex predicate: or
@@ -27,4 +29,3 @@ getResult(library, "/child::library/child::album/descendant::title/ancestor::alb
 
 # shorthand
 getResult(library, "//album[title = 'Bua Hati']/title")
-
